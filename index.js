@@ -10,10 +10,13 @@ app.use(cors());
 
 const pool = new Pool({
     user: 'axely',
-    host: 'localhost',
+    host: 'u3g2j2i2snbbpnwk45gcbmk4hhhepa-primary.postgresql.us-sanjose-1.oc1.oraclecloud.com',
     database: 'cnube',
-    password: 'Akira-21',
-    port: 5432
+    password: 'BaseDeDatos123.',
+    port: 5432,
+    ssl: {
+    	ca: fs.readFileSync('CaCertificate-db_S.pub') 
+    }
 });
 
 
@@ -78,10 +81,8 @@ app.delete("/delete/:id", (request, response) => {
     })
 });
 
-
-
-app.listen(PORT, 'localhost', () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running on http://0.0.0.0:${PORT}`);
   });
 
 

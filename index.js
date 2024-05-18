@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const PORT = 3001;
+const port = 3000;
 
 const Pool = require('pg').Pool
 var fs = require('fs');
@@ -81,8 +81,8 @@ app.delete("/delete/:id", (request, response) => {
     })
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running on http://0.0.0.0:${PORT}`);
-  });
+app.listen(port, () => {
+    console.log(`APP running on port ${port}.`)
+})
 
 

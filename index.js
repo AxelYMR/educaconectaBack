@@ -10,9 +10,9 @@ app.use(cors());
 
 const pool = new Pool({
     user: 'axely',
-    host: 'u3g2j2i2snbbpnwk45gcbmk4hhhepa-primary.postgresql.us-sanjose-1.oc1.oraclecloud.com',
+    host: 'localhost',
     database: 'cnube',
-    password: 'BaseDeDatos123.',
+    password: 'Akira-21',
     port: 5432,
     ssl: {
     	ca: fs.readFileSync('CaCertificate-db_S.pub') 
@@ -32,7 +32,8 @@ app.post("/create", (request, response) => {
     const manager = request.body.manager;
     const departamento = request.body.departamento;
     const puesto = request.body.puesto;
-    pool.query('INSERT INTO empleado (manager, departamento, puesto, nombre,paterno,materno, sueldo, tipoempleado) VALUES ($1, $2,$3, $4,$5, $6,$7, $8)', [manager, departamento, puesto,nombre,paterno,materno,sueldo,tipo], (error, results) => {
+    const notas = request.body.notas;
+    pool.query('INSERT INTO empleado (manager, departamento, puesto, nombre,paterno,materno, sueldo, tipoempleado,notas) VALUES ($1, $2,$3, $4,$5, $6,$7, $8, $9)', [manager, departamento, puesto,nombre,paterno,materno,sueldo,tipo,notas], (error, results) => {
         if (error) {
             throw error
         }else{
@@ -61,7 +62,8 @@ app.put("/update", (request, response) => {
     const manager = request.body.manager;
     const departamento = request.body.departamento;
     const puesto = request.body.puesto;
-    pool.query('update empleado set manager=$1,departamento=$2,puesto=$3,nombre=$4,paterno=$5,materno=$6,sueldo=$7,tipoempleado=$8 where id_empleado=$9', [manager, departamento, puesto,nombre,paterno,materno,sueldo,tipo,id], (error, results) => {
+    const notas = request.body.notas;
+    pool.query('update empleado set manager=$1,departamento=$2,puesto=$3,nombre=$4,paterno=$5,materno=$6,sueldo=$7,tipoempleado=$8,notas=$9 where id_empleado=$10', [manager, departamento, puesto,nombre,paterno,materno,sueldo,tipo,notas,id], (error, results) => {
         if (error) {
             throw error
         }else{

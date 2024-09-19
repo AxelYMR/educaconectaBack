@@ -23,7 +23,8 @@ app.post("/createU", (request, response) => {
     const nombre = request.body.nombre;
     const apellido = request.body.apellido;
     const contrasenia = request.body.contrasenia;
-    pool.query('INSERT INTO alumno (correo,nombre,apellido, contrasenia) VALUES ($1, $2,$3, $4)', [correo,nombre,apellido,contrasenia], (error, results) => {
+    const edad = request.body.edad;
+    pool.query('INSERT INTO alumno (correo,nombre,apellido, contrasenia, edad) VALUES ($1, $2,$3, $4, $5)', [correo,nombre,apellido,contrasenia, edad], (error, results) => {
         if (error) {
             throw error
         }else{

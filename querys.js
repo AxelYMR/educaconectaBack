@@ -23,8 +23,7 @@ app.post("/createU", (request, response) => {
     const nombre = request.body.nombre;
     const apellido = request.body.apellido;
     const contrasenia = request.body.contrasenia;
-    const edad = request.body.edad;
-    pool.query('INSERT INTO alumno (correo,nombre,apellido, contrasenia, edad) VALUES ($1, $2,$3, $4, $5)', [correo,nombre,apellido,contrasenia, edad], (error, results) => {
+    pool.query('INSERT INTO alumnos (correo,nombre,apellido, contrasenia) VALUES ($1, $2,$3, $4)', [correo,nombre,apellido,contrasenia], (error, results) => {
         if (error) {
             throw error
         }else{
@@ -34,13 +33,29 @@ app.post("/createU", (request, response) => {
 });
 
 app.get("/selectU", (request, response) => {
-    const correo= request.body.correo;
-    const contrasenia = request.body.contrasenia;
-    pool.query('Select correo, contrasenia from alumno WHERE correo = $1 AND contrasenia = $2',[correo, contrasenia], (error, result) => {
+    const correo= request.query.correo;
+    const contrasena = request.query.contrasena;
+    pool.query('SELECT contrasena, correo FROM ALUMNOS WHERE contrasena = $1 AND correo = $2',[contrasena, correo], (error, result) => {
         if (error) {
             throw error
         }else{
-            response.status(200).json(result.rows)
+            response.status(200).json(result.rows);
+            console.log(result.rows);
+        }
+    })
+});
+
+app.get("/selectD", (request, response) => {
+    const matricula= request.query.matricula;
+    const contrasena = request.query.contrasena;
+    pool.query('SELECT matricula, contrasena FROM DOCENTES WHERE matricula = $1 AND contrasena = $2',[matricula, contrasena], (error, result) => {
+        if (error) {
+            throw error
+        }else{
+            response.status(200).json(result.rows);
+            console.log(result.rows);
+            console.log(matricula);
+            console.log(contrasena);
         }
     })
 });

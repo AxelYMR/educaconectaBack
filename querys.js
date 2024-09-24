@@ -22,8 +22,26 @@ app.post("/createU", (request, response) => {
     const correo= request.body.correo;
     const nombre = request.body.nombre;
     const apellido = request.body.apellido;
-    const contrasenia = request.body.contrasenia;
-    pool.query('INSERT INTO alumnos (correo,nombre,apellido, contrasenia) VALUES ($1, $2,$3, $4)', [correo,nombre,apellido,contrasenia], (error, results) => {
+    const contrasena = request.body.contrasena;
+    const especialidad = request.body.especialidad;
+    pool.query('INSERT INTO alumnos (correo,nombre,apellidos, contrasena, especialidad) VALUES ($1, $2,$3, $4, $5)', [correo,nombre,apellido,contrasena, especialidad], (error, results) => {
+        if (error) {
+            throw error
+        }else{
+            response.send(results);
+        }
+    })
+});
+
+app.post("/createD", (request, response) => {
+    const correo= request.body.correo;
+    const nombre = request.body.nombre;
+    const apellido = request.body.apellido;
+    const contrasena = request.body.contrasena;
+    const especialidad = request.body.especialidad;
+    const matricula = request.body.matricula;
+    const materia = request.body.materia;
+    pool.query('INSERT INTO docentes (matricula,correo,nombre,apellidos, contrasena, especialidad,materia) VALUES ($1, $2, $3, $4, $5, $6, $7)', [matricula,correo,nombre,apellido,contrasena, especialidad, materia], (error, results) => {
         if (error) {
             throw error
         }else{

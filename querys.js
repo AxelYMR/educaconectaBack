@@ -8,7 +8,7 @@ var fs = require('fs');
 
 app.use(cors());
 
-const pool = new Pool({
+const pool = new Pool({ //conexion a la base de datos
     user: 'postgres',
     host: 'localhost',
     database: 'educaconecta',
@@ -18,7 +18,7 @@ const pool = new Pool({
 
 app.use(express.json());
 
-app.post("/createU", (request, response) => {
+app.post("/createU", (request, response) => { //insertar datos en la tabla alumnos
     const correo= request.body.correo;
     const nombre = request.body.nombre;
     const apellido = request.body.apellido;
@@ -33,7 +33,7 @@ app.post("/createU", (request, response) => {
     })
 });
 
-app.post("/createD", (request, response) => {
+app.post("/createD", (request, response) => { //insertar datos en la tabla docentes
     const correo= request.body.correo;
     const nombre = request.body.nombre;
     const apellido = request.body.apellido;
@@ -50,7 +50,7 @@ app.post("/createD", (request, response) => {
     })
 });
 
-app.get("/selectU", (request, response) => {
+app.get("/selectU", (request, response) => { //seleccionar datos de la tabla alumnos
     const correo= request.query.correo;
     const contrasena = request.query.contrasena;
     pool.query('SELECT contrasena, correo FROM ALUMNOS WHERE contrasena = $1 AND correo = $2',[contrasena, correo], (error, result) => {
@@ -63,7 +63,7 @@ app.get("/selectU", (request, response) => {
     })
 });
 
-app.get("/selectD", (request, response) => {
+app.get("/selectD", (request, response) => { //seleccionar datos de la tabla docentes
     const matricula= request.query.matricula;
     const contrasena = request.query.contrasena;
     pool.query('SELECT matricula, contrasena FROM DOCENTES WHERE matricula = $1 AND contrasena = $2',[matricula, contrasena], (error, result) => {
@@ -78,6 +78,6 @@ app.get("/selectD", (request, response) => {
     })
 });
 
-app.listen(port, () => {
-    console.log(`APP running on port ${port}.`)
+app.listen(port, () => { //puerto en el que se esta corriendo el servidor.
+    console.log(`APP running on port ${port}.`) //mensaje de que el servidor esta corriendo
 });

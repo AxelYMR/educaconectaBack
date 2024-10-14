@@ -50,7 +50,32 @@ app.post("/createD", (request, response) => { //insertar datos en la tabla docen
     })
 });
 
-app.get("/selectU", (request, response) => { //seleccionar datos de la tabla alumnos
+app.get("/buscarD", (request, response) => { //seleccionar datos de la tabla docentes
+    const correo= request.query.correo;
+    const matricula= request.query.matricula;
+    pool.query('SELECT correo, matricula FROM docentes WHERE correo = $1 OR matricula = $2',[correo, matricula], (error, result) => {
+        if (error) {
+            throw error
+        }else{
+            response.status(200).json(result.rows);
+            console.log(result.rows);
+        }
+    })
+});
+
+app.get("/buscarU", (request, response) => { //seleccionar datos de la tabla docentes
+    const correo= request.query.correo;
+    pool.query('SELECT correo FROM alumnos WHERE correo = $1',[correo], (error, result) => {
+        if (error) {
+            throw error
+        }else{
+            response.status(200).json(result.rows);
+            console.log(result.rows);
+        }
+    })
+});
+
+app.get("/selectA", (request, response) => { //seleccionar datos de la tabla alumnos
     const correo= request.query.correo;
     const contrasena = request.query.contrasena;
     pool.query('SELECT contrasena, correo FROM ALUMNOS WHERE contrasena = $1 AND correo = $2',[contrasena, correo], (error, result) => {
@@ -77,6 +102,32 @@ app.get("/selectD", (request, response) => { //seleccionar datos de la tabla doc
         }
     })
 });
+
+app.get("/seEncuentraD", (request, response) => { //seleccionar datos de la tabla docentes
+    const matricula= request.query.matricula;
+    pool.query('SELECT matricula FROM DOCENTES WHERE matricula = $1',[matricula], (error, result) => {
+        if (error) {
+            throw error
+        }else{
+            response.status(200).json(result.rows);
+            console.log(result.rows);
+            console.log(matricula);
+        }
+    })
+});
+
+app.get("/seEncuentraA", (request, response) => { //seleccionar datos de la tabla docentes
+    const correo= request.query.correo;
+    pool.query('SELECT correo FROM alumnos WHERE correo = $1',[correo], (error, result) => {
+        if (error) {
+            throw error
+        }else{
+            response.status(200).json(result.rows);
+            console.log(result.rows);
+        }
+    })
+});
+
 
 app.listen(port, () => { //puerto en el que se esta corriendo el servidor.
     console.log(`APP running on port ${port}.`) //mensaje de que el servidor esta corriendo

@@ -1,0 +1,8 @@
+https://es.wikipedia.org/wiki/Sistema_experto
+https://www.zendesk.com.mx/blog/sistemas-expertos-e-inteligencia-artificial/
+https://www.cs.upc.edu/~luigi/II/IA-2009-spring/6a-adquisicion-automatica-del-conocimiento-(es).ppt
+https://es.wikipedia.org/wiki/Aprendizaje_autom%C3%A1tico
+https://azure.microsoft.com/es-es/resources/cloud-computing-dictionary/what-is-machine-learning-platform
+https://www.inesdi.com/blog/logica-difusa/
+http://di002.edv.uniovi.es/~labra/FTP/LPRED.pdf
+https://ccc.inaoep.mx/~esucar/Libros/vision-sucar-gomez.pdf

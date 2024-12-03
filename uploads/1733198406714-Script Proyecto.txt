@@ -1,0 +1,83 @@
+CREATE TABLE Alumnos (
+  Matricula serial NOT NULL,
+  Contrasena VARCHAR(20) NULL,
+  Nombre VARCHAR(40) NULL,
+  Apellidos VARCHAR(40) NULL,
+  Correo VARCHAR(50) NULL,
+  Especialidad VARCHAR(40) NULL,
+  PRIMARY KEY(Matricula)
+);
+
+CREATE TABLE Docentes (
+  Matricula VARCHAR(20) NOT NULL,
+  Correo VARCHAR(50) NULL,
+  Nombre VARCHAR(40) NULL,
+  Apellidos VARCHAR(40) NULL,
+  Contrasena VARCHAR(20) NULL,
+  Especialidad VARCHAR(40) NULL,
+  Materia VARCHAR(40) NULL,
+  PRIMARY KEY(Matricula)
+);
+
+CREATE TABLE Alumnos_has_Docentes (
+  Alumnos_Matricula serial NOT NULL,
+  Docentes_Matricula VARCHAR(20) NOT NULL,
+  PRIMARY KEY(Alumnos_Matricula, Docentes_Matricula),
+  CONSTRAINT FK_Alum_Mat FOREIGN KEY(Alumnos_Matricula)
+  REFERENCES ALUMNOS (Alumnos_Matricula),
+  CONSTRAINT FK_Doc_Mat FOREIGN KEY(Docentes_Matricula)
+  REFERENCES Docentes (Docentes_Matricula)
+);
+
+CREATE TABLE Materias (
+  ID_Materia VARCHAR(20) NOT NULL,
+  Nombre VARCHAR(40) NULL,
+  Especialidad VARCHAR(40) NULL,
+  PRIMARY KEY(ID_Materia)
+);
+
+CREATE TABLE Alumnos_has_Materias (
+  Alumnos_Matricula serial NOT NULL,
+  Materias_ID_Materia VARCHAR(20) NOT NULL,
+  CONSTRAINT PRIMARY KEY(Alumnos_Matricula, Materias_ID_Materia),
+  CONSTRAINT FK_Alumnos_Mat FOREIGN KEY (Alumnos_Matricula)
+  REFERENCES ALUMNOS (Alumnos_Matricula),
+  CONSTRAINT FK_ID_Materias FOREIGN KEY (Materias_ID_Materia)
+  REFERENCES Materias (ID_Materia)
+);
+
+CREATE TABLE Tareas (
+  ID_Especialidad VARCHAR(20) NOT NULL,
+  Alumnos_Matricula VARCHAR(100) NOT NULL,
+  Fecha_Entrega VARCHAR(40) NULL,
+  Upload VARCHAR(50) NULL,
+  PRIMARY KEY(ID_Especialidad),
+  CONSTRAINT FK_Alum_Matricula FOREIGN KAY (Alumnos_Matricula)
+  REFERENCES ALUMNOS (Alumnos_Matricula)
+);
+
+CREATE TABLE Materias_has_Tareas (
+  Materias_ID_Materia VARCHAR(20) NOT NULL,
+  Tareas_ID_Especialidad VARCHAR(20) NOT NULL,
+  CONSTRAINT PRIMARY KEY(Materias_ID_Materia, Tareas_ID_Especialidad),
+  CONSTRAINT FK_Mat_ID_Materia FOREIGN KEY (Materias_ID_Materia) 
+  REFERENCES Materias (ID_Materia),
+  CONSTRAINT FK_TAR_ID_Esp FOREIGN KEY (Tareas_ID_Especialidad)
+  REFERENCES Tareas (ID_Especialidad)
+);
+
+CREATE TABLE Actividades (
+  ID_Actividad VARCHAR(20) NOT NULL,
+  Docentes_Matricula VARCHAR(20) NOT NULL,
+  Alumnos_Matricula VARCHAR(100) NOT NULL,
+  Nombre VARCHAR(40) NULL,
+  Tipo VARCHAR(20) NULL,
+  Fecha_Inicio VARCHAR(40) NULL,
+  Fecha_entrega VARCHAR(40) NULL,
+  Upload VARCHAR(50) NULL,
+  PRIMARY KEY(ID_Actividad),
+  CONSTRAINT FK_Alumnos_Matricula FOREIGN KEY (Alumnos_Matricula)
+  REFERENCES ALUMNOS (Alumnos_Matricula),
+  CONSTRAINT FK_Docentes_Matricula FOREIGN KEY (Docentes_Matricula)
+  REFERENCES DOCENTES (Docentes_Matricula)
+);
